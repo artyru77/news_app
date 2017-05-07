@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  db:
+    image: 'postgres:9.6.2'
+    volumes:
+      - 'postgres:/var/lib/postgresql/data'
+    #  ports:
+    #    - '5432:5432' # before launching docker-compose: sudo fuser -k 5432/tcp
+
+  website:
+    depends_on:
+      - 'db'
+    build: .
+    ports:
+      - '3000:3000'
+    volumes:
+      - '.:/news_app'
+      - 'bundle_data:/bundle'
+
+volumes:
+  postgres:
+  bundle_data:

@@ -1,0 +1,6 @@
+# production:
+
+development: &dev
+  yandex_news_rss_url: "https://news.yandex.ru/index.rss"
+
+test: *dev

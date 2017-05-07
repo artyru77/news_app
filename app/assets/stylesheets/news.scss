@@ -1,0 +1,106 @@
+// common
+
+$current-news-block-width: 1024px;
+$news-form-width: 568px;
+
+html{
+  background-color: #fdffe7;
+}
+
+@media (min-width: $news-form-width) {
+  .form-container{
+    width: $news-form-width;
+    margin: 50px auto 0;
+  }
+
+  .btn-news-save{
+    display: block;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: $news-form-width) {
+  .form-container{
+    margin: 20% 20px 0;
+  }
+
+  .btn-news-save, .pure-form input{
+    width: 100% !important;
+  }
+}
+
+@media (min-width: $current-news-block-width) {
+  #current-news-block{
+    width: $current-news-block-width;
+    margin: 50px auto 0;
+  }
+}
+
+@media (max-width: $current-news-block-width) {
+  #current-news-block{
+    margin: 10% 10px 0;
+  }
+}
+
+//custom_news page
+
+.form-container legend{
+  font-family: monospace;
+  font-size: 1.3em;
+  color: #666;
+}
+
+.custom-news-form{
+  margin: 0 0 10px 0;
+  label {
+    line-height: 1.6;
+    color: #333;
+    font-family: serif;
+    font-size: 1.3em;
+  }
+}
+
+input, textarea p{
+  font-family:Courier New;
+  color: #444;
+  line-height: 1.4em
+}
+
+.error-panel {
+  padding: 10px;
+  font-family: monospace;
+  border-radius: 3px;
+  border: 1px solid #ff3333;
+  margin: 0 0 10px 0;
+  background-color: #ff9999;
+}
+
+.pure-form input[readonly] {
+  color: #444;
+  background-color: white;
+}
+
+// current_news page
+
+.current-news-block-subhead {
+  text-transform: uppercase;
+  color: #aaa;
+  border-bottom: 1px solid #eee;
+  padding: 0.4em 0;
+  font-size: 80%;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+}
+
+.current-news-title {
+  font-size: 2em;
+  color: #222;
+  margin-bottom: 0.2em;
+}
+
+.current-news-description {
+  font-family: Courier New, serif;
+  line-height: 1.6em;
+  font-size: 1.1em;
+  color: #444
+}

@@ -1,0 +1,31 @@
+en:
+  time:
+    formats:
+      long: "%H:%M %d-%b-%G"
+  edit_custom_news: "Custom news"
+  helpers:
+    submit:
+      create: "Save"
+      update: "Save"
+  activerecord:
+    attributes:
+      news/news_base:
+        title: "Title"
+        description: "Description"
+        pub_date: "Publication date"
+        expires_at: "Expiration date"
+    models:
+      news/custom_news: "Custom news"
+      news/online_news: "Current news from web"
+    errors:
+      models:
+        news/news_base:
+          attributes:
+            title:
+              blank: "Please, fill title"
+            description:
+              blank: "Please, fill description"
+        news/custom_news:
+          attributes:
+            expires_at:
+              blank: "Please, fill expiration date"

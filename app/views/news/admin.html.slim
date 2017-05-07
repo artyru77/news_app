@@ -1,0 +1,27 @@
+- content_for :head do
+  = javascript_pack_tag 'news_edit'
+  = stylesheet_pack_tag 'news_edit'
+
+.form-container
+  - if @custom_news.errors.any?
+    .error-panel
+      == @custom_news.errors.messages.values.flatten.to_a.join("<br>")
+  = form_with model: @custom_news,
+      url: @custom_news.persisted? ? update_custom_news_path(@custom_news.id) : create_custom_news_path,
+      html: {method: @custom_news.persisted? ? 'patch' : 'post',
+             class: "pure-form pure-form-stacked", autocomplete: "off"} do |f|
+    fieldset
+      legend
+        = t 'edit_custom_news'
+      div.pure-g.custom-news-form
+        div.pure-u-1.pure-u-sm-1-2
+          = f.label :expires_at
+          = f.text_field :expires_at, value: @custom_news.expires_at&.localtime,
+            class: "pure-u-23-24 txt-expiration-date"
+        div.pure-u-1.pure-u-sm-1-2
+          = f.label :title
+          = f.text_field :title, class: "pure-u-1"
+        div.pure-u-1
+          = f.label :description
+          = f.text_area :description, rows: 5, class: "pure-u-1"
+      = f.submit class: "pure-button pure-input-1-4 pure-button-primary btn-news-save"

@@ -1,0 +1,14 @@
+- content_for :head do
+  = action_cable_meta_tag
+  = javascript_pack_tag 'news_cable'
+
+div#current-news-block
+  h1.current-news-block-subhead v-html="pub_date"
+    = l @current_news.pub_date.localtime, format: :long
+  section.current-news
+    header.current-news-header
+      h2.current-news-title v-html="title"
+        == @current_news.title
+    div.current-news-description
+      p v-html="description"
+        == @current_news.description

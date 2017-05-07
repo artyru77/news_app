@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  db:
+    image: 'postgres:9.6.2'
+    volumes:
+      - 'postgres:/var/lib/postgresql/data'
+    #  ports:
+    #    - '5432:5432' # before launching docker-compose: sudo fuser -k 5432/tcp
+
+  redis:
+    image: 'redis:3.2.8-alpine'
+    ports:
+      - '6379'
+    volumes:
+      - 'redis:/var/lib/redis/data'
+
+  website:
+    depends_on:
+      - 'db'
+      - 'redis'
+    build: .
+    ports:
+      - '3000:3000'
+    volumes:
+      - '.:/news_app'
+      - 'bundle_data:/bundle'
+    entrypoint: /news_app/docker-entrypoint-website.sh
+
+  cable:
+    depends_on:
+      - 'redis'
+    build: .
+    command: "bundle exec puma -p 28080  cable/config.ru"
+    ports:
+      - '28080:28080'
+    volumes:
+      - '.:/news_app'
+
+volumes:
+  redis:
+  postgres:
+  bundle_data:

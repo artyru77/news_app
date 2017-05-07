@@ -1,0 +1,35 @@
+ru:
+  date:
+    month_names:
+      [~, Январь, Февраль, Март, Апрель, Май, Июнь, Июль, Август, Сентябрь, Октябрь, Ноябрь, Декабрь]
+    abbr_month_names: [~, Янв, Фев, Мар, Апр, Май, Июн, Июл, Авг, Сен, Окт, Ноя, Дек]
+  time:
+    formats:
+      long: "%H:%M %d-%b-%G"
+  edit_custom_news: "Авторская новость"
+  helpers:
+    submit:
+      create: "Сохранить"
+      update: "Сохранить"
+  activerecord:
+    attributes:
+      news/news_base:
+        title: "Заголовок"
+        description: "Описание"
+        pub_date: "Дата публикации"
+        expires_at: "Дата истечения"
+    models:
+      news/custom_news: "Авторские новости"
+      news/online_news: "Текущие новости из сети"
+    errors:
+      models:
+        news/news_base:
+          attributes:
+            title:
+              blank: "Заполните заголовок новости"
+            description:
+              blank: "Заполните описание новости"
+        news/custom_news:
+          attributes:
+            expires_at:
+              blank: "Заполните время истечения новости"

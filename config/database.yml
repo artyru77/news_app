@@ -1,0 +1,16 @@
+development: &default
+  adapter: postgresql
+  encoding: unicode
+  database: news_app_development
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: <%= ENV.fetch("RAILS_DB_USERNAME") %>
+  password: <%= ENV.fetch("RAILS_DB_PASSWORD") {} %>
+  host: <%= ENV.fetch("RAILS_DB_HOST") { localhost } %>
+
+test:
+  <<: *default
+  database: news_app_test
+
+production:
+  <<: *default
+  database: news_app_production

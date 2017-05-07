@@ -1,0 +1,9 @@
+default: &default
+  url: <%= ENV['REDIS_CABLE_URL'] %>
+
+development: *default
+test: *default
+
+production:
+  <<: *default
+  channel_prefix: docker_rails_production
