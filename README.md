@@ -15,7 +15,7 @@ Demo appilation, for playing with:
 * [Docker](https://docs.docker.com/engine/installation/)
 * [docker-compose](https://docs.docker.com/compose/install/)
 ### Docker
-For first time:
+For the first launch:
 ```sh
 $ git clone https://github.com/slava-nikulin/news_app.git
 $ cd news_app
@@ -27,11 +27,11 @@ $ docker-compose -f docker-compose.commands.yml run --rm website rails db:create
 $ docker-compose -f docker-compose.commands.yml run --rm website yarn install
 $ docker-compose up
 ```
-Then just:
+Next time just:
 ```
 $ docker-compose up
 ```
-or if there were changes in `Dockerfile`:
+If there were changes in `Dockerfile`:
 ```
 $ docker-compose up --build
 ```
@@ -44,6 +44,8 @@ To compile assets:
 $ docker-compose -f docker-compose.commands.yml run --rm website ./bin/webpack
 ```
 Then application will be available at http://localhost:3000/
+
+Works fine on Ubuntu, for Windows it will be a little bit complicated, but still possible...
 ### Test
 ```
 $ docker-compose -f docker-compose.commands.yml run --rm -e "RAILS_ENV=test" website rspec
