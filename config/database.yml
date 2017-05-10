@@ -3,9 +3,9 @@ development: &default
   encoding: unicode
   database: news_app_development
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: <%= ENV.fetch("RAILS_DB_USERNAME") %>
-  password: <%= ENV.fetch("RAILS_DB_PASSWORD") {} %>
-  host: <%= ENV.fetch("RAILS_DB_HOST") { localhost } %>
+  username: postgres
+  host: postgres
+  port: 5432
 
 test:
   <<: *default
@@ -13,4 +13,9 @@ test:
 
 production:
   <<: *default
-  database: news_app_production
+  encoding: utf8
+  database: <%= ENV['PROD_DB_NAME'] %>
+  username: <%= ENV['PROD_USERNAME'] %>
+  password: <%= ENV['PROD_PASSWORD'] %>
+  host: <%= ENV['PROD_HOSTNAME'] %>
+  port: <%= ENV['PROD_PORT'] %>

@@ -1,0 +1,25 @@
+sudo: required
+
+language: ruby
+
+services:
+  - docker
+
+env:
+  DOCKER_COMPOSE_VERSION: 1.13.0
+
+before_install:
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - sudo apt-get update
+  - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-engine
+  - docker-compose -f docker-compose.commands.yml build
+  - docker-compose -f docker-compose.commands.yml run --rm website rails db:create db:migrate db:test:prepare
+  - docker-compose -f docker-compose.commands.yml run --rm website yarn install
+  - docker-compose -f docker-compose.commands.yml run --rm -e RAILS_ENV=test website bin/webpack
+  - cp config/secrets.yml.example config/secrets.yml
+  - TEST_SECRET_KEY_BASE=$(docker-compose -f docker-compose.commands.yml run --rm website rails secret)
+script:
+  - docker-compose -f docker-compose.commands.yml run --rm -e TEST_SECRET_KEY_BASE="$TEST_SECRET_KEY_BASE" -e RAILS_ENV=test website rspec

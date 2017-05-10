@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/slava-nikulin/news_app.svg?branch=master)](https://travis-ci.org/slava-nikulin/news_app)
+
 # News app
 
 Demo appilation, for playing with:
@@ -31,6 +33,14 @@ Next time just:
 ```
 $ docker-compose up
 ```
+You will need to create `config/secrets.yml` file:
+```
+$ mv config/secrets.yml.example secrets.yml
+```
+Generate key:
+```
+$ docker-compose -f docker-compose.commands.yml run --rm website rails secret
+```
 If there were changes in `Dockerfile`:
 ```
 $ docker-compose up --build
@@ -62,5 +72,3 @@ then
 * `config/secrets.yml`
 
 And use `docker-compose-deploy.yml`
-### TODO
-* Add CI
