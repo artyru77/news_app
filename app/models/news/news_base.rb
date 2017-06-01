@@ -7,7 +7,7 @@ module News
   #   end
   #
   class NewsBase < ApplicationRecord
-    self.table_name = 'news'
+    self.table_name = "news"
     validates :title, :description, presence: true
 
     # Public: Prepare model for transmitting via ActionCable.
@@ -20,9 +20,9 @@ module News
     # Returns hash.
     def to_hash
       {
-        title: self.title,
-        description: self.description,
-        pub_date: I18n.l(self.pub_date.localtime, format: :long),
+        title: title,
+        description: description,
+        pub_date: I18n.l(pub_date.localtime, format: :long),
       }
     end
   end

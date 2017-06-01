@@ -1,12 +1,12 @@
-require 'rss'
-require 'open-uri'
+require "rss"
+require "open-uri"
 
 # Public: Handler for actualization and synchronization news, that would be used for displaying,
 # with user-created news or online news.
 #
 class NewsHandler
+  @lock = Mutex.new
   class << self
-
     # Public: Get current news, that are showed to users in their browsers
     #
     # Examples
@@ -57,10 +57,12 @@ class NewsHandler
     #
     # Returns nothing
     def update_and_broadcast_if_needed
-      update_news
-      begin
-        ActionCable.server.broadcast("news_channel", news: @current_news.to_hash) if @need_broadcast
-      rescue Redis::CannotConnectError
+      @lock.synchronize do
+        update_news
+        begin
+          ActionCable.server.broadcast("news_channel", news: @current_news.to_hash) if @need_broadcast
+        rescue Redis::CannotConnectError
+        end
       end
     end
 
@@ -75,7 +77,7 @@ class NewsHandler
     #
     # Returns RSS::Rss::Channel::Item
     def fetch_yandex_news
-      feed = RSS::Parser.parse(Rails.configuration.news['yandex_news_rss_url'])
+      feed = RSS::Parser.parse(Rails.configuration.news["yandex_news_rss_url"])
       return unless feed&.items && !feed.items.size.zero?
 
       feed.items.sort_by(&:pubDate).reverse.first
@@ -103,7 +105,7 @@ class NewsHandler
         @current_news = News::OnlineNews.create!(
           pub_date: feed_item.pubDate.utc,
           title: feed_item.title,
-          description: feed_item.description
+          description: feed_item.description,
         )
       elsif @need_broadcast = (@current_news.nil? || @current_news.is_a?(News::CustomNews))
         @current_news = last_online_news

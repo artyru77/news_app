@@ -1,4 +1,5 @@
 en:
+  app_title: "Demo \"News\" app"
   time:
     formats:
       long: "%H:%M %d-%b-%G"

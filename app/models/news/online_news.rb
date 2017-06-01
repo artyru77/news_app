@@ -5,7 +5,7 @@ module News
     validates :expires_at, absence: true
 
     before_save do
-      self.pub_date = Time.zone.now unless self.pub_date
+      self.pub_date = Time.zone.now unless pub_date
     end
   end
 end

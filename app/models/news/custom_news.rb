@@ -7,7 +7,7 @@ module News
     before_save do
       # rails strong parameters gem converts datetime string into Time with UTC +000 timezone
       # so we need to convert that string into local time
-      self.expires_at = self.expires_at.to_s(:db).to_time
+      self.expires_at = expires_at.to_s(:db).to_time
 
       self.pub_date = Time.zone.now
     end
@@ -21,7 +21,7 @@ module News
     #
     # Returns bool.
     def expired?
-      self.expires_at <= Time.zone.now
+      expires_at <= Time.zone.now
     end
   end
 end

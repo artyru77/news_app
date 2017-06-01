@@ -53,7 +53,7 @@ To compile assets:
 ```
 $ docker-compose -f docker-compose.commands.yml run --rm website ./bin/webpack
 ```
-Then application will be available at http://localhost:3000/
+Then application will be available at http://localhost:3000/ and http://localhost:3000/admin
 
 Works fine on Ubuntu, for Windows it will be a little bit complicated, but still possible...
 ### Test
